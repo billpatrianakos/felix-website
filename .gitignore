@@ -1,0 +1,18 @@
+# Things we want to ignore.
+# Why ignore these things?
+#
+# - Maybe you want to use a different Node version
+# - Maybe you prefer different editor settings
+# - You should always install dependencies yourself - this also cuts down on repo size
+# - ...and other good reasons...
+
+##
+# Do not enforce a Node version
+##
+.nvmrc
+
+##
+# Ignore node_modules/ folder
+# Install your own deps
+##
+node_modules/
