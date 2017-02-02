@@ -1,0 +1,29 @@
+{
+  "name": "felix-website",
+  "version": "1.0.0",
+  "description": "The official website for Felix and Friends",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billpatrianakos/felix-website.git"
+  },
+  "keywords": [
+    "band",
+    "website",
+    "felix",
+    "and",
+    "friends"
+  ],
+  "author": "Bill Patrianakos <bill@billpatrianakos.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/billpatrianakos/felix-website/issues"
+  },
+  "homepage": "https://github.com/billpatrianakos/felix-website#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
