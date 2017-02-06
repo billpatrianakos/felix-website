@@ -1,0 +1,26 @@
+{
+  "name": "felix-website",
+  "description": "The official website for Felix and Friends",
+  "main": "src/index.js",
+  "authors": [
+    "Bill Patrianakos <bill@billpatrianakos.me>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "band",
+    "website",
+    "felix",
+    "and",
+    "friends"
+  ],
+  "homepage": "https://github.com/billpatrianakos/felix-website",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/public/vendor",
+    "test",
+    "tests"
+  ]
+}
