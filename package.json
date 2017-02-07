@@ -25,5 +25,8 @@
   "homepage": "https://github.com/billpatrianakos/felix-website#readme",
   "devDependencies": {
     "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "express": "^4.14.1"
   }
 }
