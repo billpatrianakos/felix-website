@@ -13,13 +13,16 @@ let gulp  = require('gulp'),
 // Start a local Express server
 gulp.task('server', () => {
   // Start and configure a server instance
-  let server = gls('./src/index.js', { NODE_ENV: process.env.NODE_ENV || 'development', PORT: 9000 });
+  let server = gls('./src/index.js', { env: { NODE_ENV: 'development', PORT: 9000 } });
   server.start();
 
   gulp.watch(['./src/public/**/*.{css,js}', './src/views/**/*.hbs'], (file) => {
     server.notify.apply(server, [file]);
   });
-  gulp.watch(['./src/index.js', './src/{api,models,routes}/**/*.js'], server.start.bind(server));
+  gulp.watch(['./src/index.js', './src/{api,models,routes}/**/*.js'], () => {
+    server.start.bind(server)();
+  });
+  // gulp.watch(['./src/index.js', './src/{api,models,routes}/**/*.js'], server.start.bind(server));
 });
 
 
