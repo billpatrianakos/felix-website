@@ -16,7 +16,7 @@
 # Install your own deps
 ##
 node_modules/
-
+src/public/vendor/
 
 ##
 # Ignore system files
