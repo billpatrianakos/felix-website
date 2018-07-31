@@ -43,6 +43,10 @@ gulp.task('watch', () => {
   gulp.watch(['./src/less/**/*.less'], ['less']);
 });
 
+gulp.task('setup', () => {
+  gulp.src('./node_modules/normalize.css/normalize.css').pipe(gulp.dest('./src/public/vendor'));
+})
+
 
 // Default task
-gulp.task('default', ['server', 'watch']);
+gulp.task('default', ['setup', 'server', 'watch']);
