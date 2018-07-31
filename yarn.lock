@@ -1432,6 +1432,10 @@ hosted-git-info@^2.1.4:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
 
+html5shiv@^3.7.3:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/html5shiv/-/html5shiv-3.7.3.tgz#d78a84a367bcb9a710100d57802c387b084631d2"
+
 http-errors@1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.6.2.tgz#0a002cc85707192a7e7946ceedc11155f60ec736"
@@ -2748,6 +2752,10 @@ resolve@^1.1.6, resolve@^1.1.7, resolve@^1.5.0:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.8.1.tgz#82f1ec19a423ac1fbd080b0bab06ba36e84a7a26"
   dependencies:
     path-parse "^1.0.5"
+
+respondjs@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/respondjs/-/respondjs-0.3.0.tgz#a784b670df0f5802f5075a84bb495781f2994fba"
 
 ret@~0.1.10:
   version "0.1.15"
