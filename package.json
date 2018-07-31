@@ -4,6 +4,9 @@
   "description": "The official website for Felix and Friends",
   "main": "src/index.js",
   "scripts": {
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "server": "nodemon src/server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,15 +27,28 @@
   },
   "homepage": "https://github.com/billpatrianakos/felix-website#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.0-beta.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "concurrently": "^3.6.1",
+    "eslint": "^5.2.0",
     "gulp": "^3.9.1",
     "gulp-less": "^3.3.0",
     "gulp-live-server": "0.0.30",
     "html5shiv": "^3.7.3",
+    "nodemon": "^1.18.3",
     "normalize.css": "^8.0.0",
     "respondjs": "^0.3.0",
-    "webpack": "^2.2.1"
+    "webpack": "^2.7.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.55",
+    "@babel/preset-env": "^7.0.0-beta.55",
     "express": "^4.14.1"
   }
 }
