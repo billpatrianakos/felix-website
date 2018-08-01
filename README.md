@@ -11,5 +11,9 @@ __Requirements__
 __Setup__
 
 1. Clone the project
-2. Install Gulp and Bower globally with `npm install -g gulp-cli bower`
+2. Install Webpack globally with `npm install -g webpack`
 3. Install dependencies with `npm install`
+
+__Run the app__
+
+`npm run dev`
