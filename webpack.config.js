@@ -28,6 +28,7 @@ module.exports = {
     ]
   },
   devServer: {
+    contentBase: path.resolve(__dirname, 'src', 'client'),
     port: 8080,
     open: true,
     proxy: {
