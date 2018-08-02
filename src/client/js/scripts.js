@@ -1,10 +1,11 @@
+require('../less/style.less');
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends Component {
   render() {
     return(
-      <h1>Hello there</h1>
+      <h1>Test</h1>
     );
   }
 }

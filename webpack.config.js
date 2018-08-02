@@ -2,18 +2,17 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './js/scripts.js',
+  entry: {
+    app: './js/scripts.js',
+    styles: './less/style.less'
+  },
   context: path.resolve(__dirname, 'src', 'client'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
-      { 
-        test: /\.js$/, 
-        exclude: /node_modules/, 
-        loader: "babel-loader" },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -22,8 +21,26 @@ module.exports = {
         }
       },
       {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.less$/,
+        use: [{
+          loader: 'style-loader' // creates style nodes from JS strings
+        }, {
+          loader: 'css-loader' // translates CSS into CommonJS
+        }, {
+          loader: 'less-loader' // compiles Less to CSS
+        }]
+      },
+      {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" }
+        ]
       }
     ]
   },
