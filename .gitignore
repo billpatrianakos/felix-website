@@ -22,3 +22,8 @@ src/public/vendor/
 # Ignore system files
 ##
 .DS_Store
+
+##
+# Ignore any build artifacts/generated files
+##
+dist/
