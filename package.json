@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "The official website for Felix and Friends",
   "main": "server/index.js",
+  "browserslist": ["last 2 versions"],
   "scripts": {
     "dev:client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "dev:server": "nodemon server/index.js",
@@ -46,8 +47,10 @@
     "html5shiv": "^3.7.3",
     "jquery": "^3.3.1",
     "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.1",
     "nodemon": "^1.18.3",
     "normalize.css": "^8.0.0",
+    "postcss-loader": "^2.1.6",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "respondjs": "^0.3.0",

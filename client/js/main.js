@@ -1,4 +1,4 @@
-require('../less/style.less');
+import style from '../less/style.less';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 

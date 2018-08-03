@@ -1,6 +1,7 @@
-const path                = require('path');
-const CleanWebpackPlugin  = require('clean-webpack-plugin');
-const HtmlWebpackPlugin   = require('html-webpack-plugin');
+const path                  = require('path');
+const CleanWebpackPlugin    = require('clean-webpack-plugin');
+const HtmlWebpackPlugin     = require('html-webpack-plugin');
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'client'),
@@ -27,13 +28,19 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: [{
-          loader: 'style-loader' // creates style nodes from JS strings
-        }, {
-          loader: 'css-loader' // translates CSS into CommonJS
-        }, {
-          loader: 'less-loader' // compiles Less to CSS
-        }]
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ]
+        // use: [{
+        //   loader: 'style-loader' // creates style nodes from JS strings
+        // }, {
+        //   loader: 'css-loader' // translates CSS into CommonJS
+        // }, {
+        //   loader: 'less-loader' // compiles Less to CSS
+        // }]
       },
       {
         test: /\.css$/,
@@ -67,6 +74,10 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ]
 }
