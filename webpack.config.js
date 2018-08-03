@@ -1,12 +1,12 @@
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path                = require('path');
+const CleanWebpackPlugin  = require('clean-webpack-plugin');
+const HtmlWebpackPlugin   = require('html-webpack-plugin');
 
 module.exports = {
+  context: path.resolve(__dirname, 'client'),
   entry: {
-    app: './js/scripts.js',
-    styles: './less/style.less'
+    main: './js/main.js',
   },
-  context: path.resolve(__dirname, 'src', 'client'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js'
@@ -41,18 +41,32 @@ module.exports = {
           { loader: "style-loader" },
           { loader: "css-loader" }
         ]
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              minimize: true
+            }
+          }
+        ]
       }
     ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'src', 'client'),
+    contentBase: path.resolve(__dirname, 'client'),
     port: 8080,
     open: true,
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/api': 'http://localhost:9000'
     }
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    })
   ]
 }
