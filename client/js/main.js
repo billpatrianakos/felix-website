@@ -11,13 +11,13 @@ import {
 } from 'react-router-dom';
 import Nav from './components/Nav.jsx';
 
-// const Home = () => (
-//   <h1>SAP Home Route</h1>
-// );
+const Home = () => (
+  <h1>SAP Home Route</h1>
+);
 
-// const Log = () => (
-//   <h1>SAP Log Route</h1>
-// );
+const Log = () => (
+  <h1>SAP Log Route</h1>
+);
 
 // Main container for the entire application
 // -----------------------------------------
