@@ -1,16 +1,25 @@
 // Grid layout using CSS Grid
 // ==========================
 
-body {
-  margin: 1rem 2rem;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 1rem;
+  grid-auto-rows: minmax(1rem, auto);
 }
 
 nav.global-nav {
-  grid-column: 1 / -1;
+  grid-column-start: 1;
+  grid-column-end: -1;
+  grid-row: 1;
+}
+
+.main-content {
+  grid-column: span 13;
 }
