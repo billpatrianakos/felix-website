@@ -17,9 +17,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        use: ["babel-loader", "eslint-loader"]
       },
       {
         test: /\.jsx$/,
@@ -34,13 +32,6 @@ module.exports = {
           'postcss-loader',
           'less-loader'
         ]
-        // use: [{
-        //   loader: 'style-loader' // creates style nodes from JS strings
-        // }, {
-        //   loader: 'css-loader' // translates CSS into CommonJS
-        // }, {
-        //   loader: 'less-loader' // compiles Less to CSS
-        // }]
       },
       {
         test: /\.css$/,

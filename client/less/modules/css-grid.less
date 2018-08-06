@@ -1,0 +1,16 @@
+// Grid layout using CSS Grid
+// ==========================
+
+body {
+  margin: 1rem 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1rem;
+}
+
+nav.global-nav {
+  grid-column: 1 / -1;
+}

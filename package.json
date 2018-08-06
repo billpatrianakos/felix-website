@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "The official website for Felix and Friends",
   "main": "server/index.js",
-  "browserslist": ["last 2 versions"],
+  "browserslist": [
+    "last 2 versions"
+  ],
   "scripts": {
     "dev:client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "dev:server": "nodemon server/index.js",
@@ -39,6 +41,8 @@
     "concurrently": "^3.6.1",
     "css-loader": "^1.0.0",
     "eslint": "^5.2.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-react": "^7.10.0",
     "gulp": "^3.9.1",
     "gulp-less": "^3.3.0",
     "gulp-live-server": "0.0.30",
@@ -53,6 +57,7 @@
     "postcss-loader": "^2.1.6",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-router-dom": "^4.3.1",
     "respondjs": "^0.3.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.16.3",
