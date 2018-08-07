@@ -1,6 +1,6 @@
-// View Routes
-// ===========
-// Routes that render a view
+// API Routes
+// -----------
+// Routes that respond to API requests
 
 'use strict';
 
@@ -15,7 +15,7 @@ module.exports = (app) => {
 
     // Only load files that aren't directories and aren't blacklisted
     if (!fs.lstatSync(__dirname + '/' + file).isDirectory() && !_.includes(excluded, file)) {
-      app.use('/' + basename, require('./' + file));
+      app.use('/api/' + basename, require('./' + file));
     }
   });
 };
