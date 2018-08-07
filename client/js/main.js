@@ -8,6 +8,7 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Nav from './components/Nav';
 import HomeContainer from './pages/Home';
 import LogContainer from './pages/Log';
@@ -19,6 +20,9 @@ class App extends Component {
     return(
       <Router>
         <div className="grid">
+          <Helmet>
+            <title>Homepage</title>
+          </Helmet>
           <Nav />
           <Route exact path="/" component={HomeContainer}/>
           <Route path="/log" component={LogContainer}/>
