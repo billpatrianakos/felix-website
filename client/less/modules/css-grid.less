@@ -4,22 +4,22 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  .box-sizing(border-box);
 }
 
 .grid {
+  // max-width: 1140px;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: 320px 1fr;
   grid-gap: 1rem;
-  grid-auto-rows: minmax(1rem, auto);
+  grid-template-areas: 
+    "nav content";
 }
 
 nav.global-nav {
-  grid-column-start: 1;
-  grid-column-end: -1;
-  grid-row: 1;
+  grid-area: nav;
 }
 
 .main-content {
-  grid-column: span 13;
+  grid-area: content;
 }
