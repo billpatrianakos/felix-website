@@ -68,6 +68,13 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "express": "^4.14.1"
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "connect-redis": "^3.3.3",
+    "csurf": "^1.9.0",
+    "express": "^4.14.1",
+    "express-session": "^1.15.6",
+    "lodash": "^4.17.10",
+    "morgan": "^1.9.0"
   }
 }
