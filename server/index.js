@@ -7,6 +7,8 @@ const morgan      = require('morgan');
 const fs          = require('fs');
 const bodyParser  = require('body-parser');
 const csurf       = require('csurf'); // TODO: CONFIGURE THIS
+const ejs         = require('ejs');
+const path        = require('path');
 
 // Set up all middleware
 // ---------------------
@@ -19,6 +21,8 @@ app.use(bodyParser.json());
 require('./api')(app); // Sneak the API in here since it doesn't need all the middleware
 
 // Continue setting up middleware
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === 'production') {
   config.session.store = new RedisStore({ logErrors: true });
@@ -26,13 +30,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(session(config.session));
 
+
 // Require all other routes
 // ------------------------
 require('./routes')(app);
 
-app.get('/', (req, res) => {
-  res.send('Hello world');
+app.get('/?', (req, res, next) => {
+  res.render('login', {foo: 'bar'});
 });
+
 
 // 404 Handler
 // -----------
@@ -49,8 +55,10 @@ app.use((err, req, res, next) => {
   if (req.xhr)
     res.status(500).json({ status: 'error', message: process.env.NODE_ENV === 'production' ? 'An unexpected error was encountered' : `Error: ${err}` });
   else
-    res.status(500).render('500', { error: process.env.NODE_ENV === 'production' ? 'An unexpected error was encountered' : `Error: ${err}` })
+    res.send(err);
+    // res.status(500).render('500', { error: err })
 });
+
 
 let server = app.listen(process.env.PORT || 9000, () => {
   console.log(`App is listening on localhost:${server.address().port}`);
