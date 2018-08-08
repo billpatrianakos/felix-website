@@ -1,7 +1,7 @@
 const express     = require('express');
 const app         = express();
 const session     = require('express-session');
-const config      = require('./config/config')[process.env.NODE_ENV || 'development'];
+const config      = require('./config/app')[process.env.NODE_ENV || 'development'];
 const RedisStore  = require('connect-redis')(session);
 const morgan      = require('morgan');
 const fs          = require('fs');
@@ -36,7 +36,7 @@ app.use(session(config.session));
 require('./routes')(app);
 
 app.get('/?', (req, res, next) => {
-  res.render('login', {foo: 'bar'});
+  res.render('login', { title: 'Login', foo: 'bar' });
 });
 
 

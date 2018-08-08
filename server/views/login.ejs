@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<%- include('partials/header', { title: title }) -%>
 
-  <title>TODO: Change page title</title>
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="author" href="/humans.txt" />
+  <p>Rendered server-side: <%= foo %>.</p>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="stylesheet" href="https://use.typekit.net/gpz4maz.css">
-</head>
-
-<body>
-
-  <p>Rendered server-side: <%= foo %></p>
-
-</body>
-</html>
+<%- include('partials/footer') -%>
