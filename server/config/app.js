@@ -11,6 +11,9 @@ module.exports = {
       resave: true,
       saveUninitialized: false,
       rolling: false
+    },
+    jwt: {
+      secret: 'mOMkzwi(+OQ{y!qa%nR!2W|vZM?{C?=xK$;(iK,Q#z_USg{OW[59-i"/mx5enknXW,"f~@Eu?%,$Qm/hW?$EQ[k>qMkA`SOYt~o">FwvuZ~PQjb#/I+-oVoj9EmJ{}'
     }
   },
   production: {
@@ -23,6 +26,9 @@ module.exports = {
       resave: false,
       saveUninitialized: false,
       rolling: false
+    },
+    jwt: {
+      secret: process.env.JWT_SECRET // https://www.grc.com/passwords.htm if you don't want to generate this yourself
     }
   }
 };
