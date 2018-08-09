@@ -1,3 +1,10 @@
+// Server startup script
+// =====================
+// Main entry point for the app
+
+// Import all our dependencies
+// ---------------------------
+// TODO: Remove all the deps we're not using anymore like ejs and csurf
 const express     = require('express');
 const app         = express();
 const session     = require('express-session');
@@ -10,6 +17,7 @@ const csurf       = require('csurf'); // TODO: CONFIGURE THIS
 const ejs         = require('ejs');
 const path        = require('path');
 
+console.log('ENVIRONMENT IS: ', process.env.NODE_ENV);
 // Set up all middleware
 // ---------------------
 app.use(morgan((process.env.NODE_ENV === 'production') ? 'combined' : 'dev', {
