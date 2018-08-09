@@ -4,10 +4,7 @@
 import '../less/style.less'; // Removed by Webpack at compile time
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Nav from './components/Nav';
 import HomeContainer from './pages/Home';
