@@ -1,0 +1,25 @@
+// Grid layout using CSS Grid
+// ==========================
+
+*,
+*::before,
+*::after {
+  .box-sizing(border-box);
+}
+
+.grid {
+  // max-width: 1140px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-gap: 1rem;
+  grid-template-areas: 
+    "nav content";
+}
+
+nav.global-nav {
+  grid-area: nav;
+}
+
+.main-content {
+  grid-area: content;
+}
