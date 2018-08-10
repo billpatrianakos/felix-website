@@ -6,10 +6,16 @@ import decode from 'jwt-decode';
 
 export default class AuthService {
   constructor(domain) {
-    this.domain     = domain || 'http://localhost:9000';
-    this.fetch      = this.fetch.bind(this);
-    this.login      = this.login.bind(this);
-    this.getProfile = this.getProfile.bind(this);
+    this.domain         = domain || process.env.API_URL;
+    this.fetch          = this.fetch.bind(this);
+    this.login          = this.login.bind(this);
+    this.logout         = this.logout.bind(this);
+    this.loggedIn       = this.loggedIn.bind(this);
+    this.isTokenExpired = this.isTokenExpired.bind(this);
+    this.setToken       = this.setToken.bind(this);
+    this.getToken       = this.getToken.bind(this);
+    this.getProfile     = this.getProfile.bind(this);
+    this._checkStatus   = this._checkStatus.bind(this);
   }
 
   // Authenticate and get a JWT from the API
@@ -21,10 +27,10 @@ export default class AuthService {
         password
       })
     })
-    .then(res => {
-      this.setToken(res.token)
-      return Promise.resolve(res);
-    });
+      .then(res => {
+        this.setToken(res.token);
+        return Promise.resolve(res);
+      });
   }
 
   // Check if user's token is still valid
@@ -73,11 +79,12 @@ export default class AuthService {
     }
 
     return fetch(url, {
-      headers,
-      options // ...options?
+      headers: headers,
+      method: options.method,
+      body: options.body
     })
-    .then(this._checkStatus)
-    .then(response => response.json());
+      .then(this._checkStatus)
+      .then(response => response.json());
   }
 
   // Raise errors if response is not 200

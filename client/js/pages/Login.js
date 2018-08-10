@@ -9,10 +9,15 @@ class Login extends Component {
     super();
     this.handleChange     = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.Auth             = new AuthService();
+    this.Auth             = new AuthService(process.env.API_URL);
+
+    // this.state = {
+    //   username: null,
+    //   password: null
+    // };
   }
 
-  componentDidMount() { // componentWillMount?
+  UNSAFE_componentWillMount() { // componentWillMount?
     if (this.Auth.loggedIn()) {
       this.props.history.replace('/'); // Redirect to admin page if already logged in and trying to access login page
     }
@@ -27,8 +32,8 @@ class Login extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
 
-    this.Auth.login(this.state.username. this.state.password)
-      .then(res => {
+    this.Auth.login(this.state.username, this.state.password)
+      .then(res => { /* eslint no-unused-vars: 1 */
         this.props.history.replace('/');
       })
       .catch(err => {
@@ -39,7 +44,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleFormSubmit}>
           <input
             className=""
             placeholder="Username"
@@ -54,7 +59,7 @@ class Login extends Component {
             type="password"
             onChange={this.handleChange}
           />
-          <button type="submit">Log in</button>
+          <input type="submit" value="Log in" />
         </form>
       </div>
     );
