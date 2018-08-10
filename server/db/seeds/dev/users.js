@@ -1,13 +1,15 @@
 // User seeds
+// ==========
+const bcrypt  = require('bcrypt');
+
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
+  return knex('users').del()
+    .then(() => bcrypt.hash('password', 12))
+    .then(function (hash) {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex('users').insert([
+        {id: 1, username: 'felix', email: 'felix@localhost.com', password: hash, first_name: 'Felix', bio: 'The default user.', created_at: new Date(), updated_at: new Date() }
       ]);
     });
 };

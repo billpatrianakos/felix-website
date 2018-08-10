@@ -2,6 +2,16 @@
 // ===================================
 module.exports = {
   development: {
+    cors: {
+      origin: function(origin, callback) {
+        if (['http://localhost:8080', 'http://localhost:9000'].indexOf(origin) !== -1 || !origin) { // Allow CORS and REST tools like Postman in dev mode
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      optionsSuccessStatus: 204 // 204 is usually the default
+    },
     session: {
       secret: 'TODO: changeMeChangeMeChangeMe',
       cookie: {
@@ -17,6 +27,16 @@ module.exports = {
     }
   },
   production: {
+    cors: {
+      origin: function(origin, callback) {
+        if ([process.env.CORS_ORIGIN].indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      optionsSuccessStatus: 204 // 204 is usually the default
+    },
     session: {
       secret: process.env.SESSION_SECRET,
       cookie: {

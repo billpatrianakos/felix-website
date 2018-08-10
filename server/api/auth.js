@@ -5,7 +5,7 @@ const express         = require('express');
 const AuthController  = express.Router();
 const jwtMW           = require(__dirname + '/../lib/jwt-middleware');
 const jwt             = require('jsonwebtoken');
-const config          = require(__dirname + '/../config/app')[process.env.NODE_ENV || 'development'].jwt;
+const config          = require(__dirname + '/../config/app')[process.env.NODE_ENV || 'development'];
 
 AuthController.route('/?')
   // GET /api/auth/
@@ -22,13 +22,14 @@ AuthController.route('/login/?')
       username: 'user',
       password: 'password'
     };
+    console.log('BODY OF REQUEST: ', req.body);
     const {username, password} = req.body;
 
     if (username === testUser.username && password === testUser.password) {
-      let token = jwt.sign({id: 1, username: testUser.username}, config.secret, {expiresIn: '10h'})
+      let token = jwt.sign({id: 1, username: testUser.username}, config.jwt.secret, {expiresIn: '10h'})
       res.json({
         error: false,
-        token
+        token: token
       });
     } else {
       res.status(401).json({
