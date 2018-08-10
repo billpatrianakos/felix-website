@@ -75,7 +75,7 @@
     "body-parser": "^1.18.3",
     "bookshelf": "^0.13.3",
     "connect-redis": "^3.3.3",
-    "csurf": "^1.9.0",
+    "cors": "^2.8.4",
     "express": "^4.14.1",
     "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
