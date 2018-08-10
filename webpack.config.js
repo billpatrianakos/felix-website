@@ -2,13 +2,13 @@ const path                  = require('path');
 const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const HtmlWebpackPlugin     = require('html-webpack-plugin');
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
-const webpack = require('webpack');
+const webpack               = require('webpack');
 
-function buildConfig(env) {
-  return require("./config/webpack." + Object.keys(env)[0] + ".js")(env);
-}
+module.exports = (env, argv) => {
+  console.log('ENV is: ', argv.mode);
 
-module.exports = env => {
+  const apiUrl = argv.mode === 'production' ? 'https://felixandfriends.net' : 'http://localhost:9000';
+
   return {
     context: path.resolve(__dirname, 'client'),
     entry: {
@@ -95,8 +95,8 @@ module.exports = env => {
         chunkFilename: '[id].css'
       }),
       new webpack.DefinePlugin({
-        'API_URL': env.production ? JSON.stringify('http://felixandfriends.net') : JSON.stringify('http://localhost:9000')
+        'process.env.API_URL': JSON.stringify(apiUrl)
       })
     ]
   }
-}
+};
