@@ -27,3 +27,16 @@ src/public/vendor/
 # Ignore any build artifacts/generated files
 ##
 dist/
+
+##
+# Ignore any large files or data that should
+# be kept separate on individual machines
+##
+server/db/*.sqlite3
+
+##
+# Ignore potentially sensitive data
+# Never hardcode tokens passwords, etc.
+##
+server/db/seeds/production
+server/db/seeds/staging
