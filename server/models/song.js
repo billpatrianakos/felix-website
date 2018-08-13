@@ -1,6 +1,6 @@
 // Song model
 // ==========
-const Bookshelf = require(__dirname + '../config/db');
+const Bookshelf = require(__dirname + '/../config/db');
 require('./album');
 
 let Song = Bookshelf.Model.extend({

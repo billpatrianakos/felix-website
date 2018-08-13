@@ -1,6 +1,6 @@
 // Post model
 // ==========
-const Bookshelf = require(__dirname + '../config/db');
+const Bookshelf = require(__dirname + '/../config/db');
 require('./user');
 
 let Post = Bookshelf.Model.extend({
