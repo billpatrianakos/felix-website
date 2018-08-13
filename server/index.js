@@ -13,18 +13,17 @@ const morgan      = require('morgan');
 const fs          = require('fs');
 const bodyParser  = require('body-parser');
 const _           = require('lodash');
-const prodEnvs    = ['production', 'staging'];
-
+const isProd      = function() { return _.includes(['production', 'staging'], process.env.NODE_ENV); };
 
 console.log('ENVIRONMENT IS: ', process.env.NODE_ENV);
 // Set up all middleware
 // ---------------------
-app.set('trust proxy', _.includes(prodEnvs, process.env.NODE_ENV) ? 1 : 0); // Trust Nginx as proxy server
+app.set('trust proxy', isProd() ? 1 : 0); // Trust Nginx as proxy server
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan(_.includes(prodEnvs, process.env.NODE_ENV) ? 'combined' : 'dev', {
-  stream: _.includes(prodEnvs, process.env.NODE_ENV) ? fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' }) : process.stdout,
-  skip: (req, res) => { return _.includes(prodEnvs, process.env.NODE_ENV) && res.statusCode < 400 }
+app.use(morgan(isProd() ? 'combined' : 'dev', {
+  stream: isProd() ? fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' }) : process.stdout,
+  skip: (req, res) => { return isProd() && res.statusCode < 400 }
 }));
 
 
@@ -50,12 +49,14 @@ app.use((req, res, next) => {
 // --------------
 app.use((err, req, res, next) => {
   if (req.xhr)
-    res.status(500).json({ status: 'error', message: process.env.NODE_ENV === 'production' ? 'An unexpected error was encountered' : `Error: ${err}` });
+    res.status(500).json({ status: 'error', message: isProd() ? 'An unexpected error was encountered' : `Error: ${err}` });
   else
     res.send(err);
 });
 
 
+// Start the server
+// ----------------
 let server = app.listen(process.env.PORT || 9000, () => {
   console.log(`App is listening on localhost:${server.address().port}`);
 });
