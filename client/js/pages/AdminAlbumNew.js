@@ -38,21 +38,41 @@ class AdminAlbumNew extends Component {
         </Helmet>
         <h2>New Album Form</h2>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="title" onChange={this.handleChange} placeholder="Title" />
-          <input type="date" name="release_date" onChange={this.handleChange} placeholder="Release Date" />
-          <textarea name="description" onChange={this.handleChange} placeholder="Description"></textarea>
-          <input type="text" name="cover_art" onChange={this.handleChange} placeholder="Cover art URL" />
-          <input type="text" name="itunes_url" onChange={this.handleChange} placeholder="iTunes URL" />
-          <input type="text" name="bandcamp_url" onChange={this.handleChange} placeholder="Bandcamp URL" />
-          <input type="text" name="apple_music_url" onChange={this.handleChange} placeholder="Apple Music URL" />
-          <input type="text" name="spotify_url" onChange={this.handleChange} placeholder="Spotify URL" />
-          <select name="type">
-            <option value="EP">EP</option>
-            <option value="LP">LP</option>
-            <option value="Single">Single</option>
-            <option value="Album">Album</option>
-          </select>
-          <input type="submit" value="Save Album" />
+          <label>
+            <input type="text" name="title" onChange={this.handleChange} placeholder="Title" />
+          </label>
+          <label>
+            <input type="date" name="release_date" onChange={this.handleChange} placeholder="Release Date" />
+          </label>
+          <label>
+            <textarea name="description" onChange={this.handleChange} placeholder="Description"></textarea>
+          </label>
+          <label>
+            <input type="text" name="cover_art" onChange={this.handleChange} placeholder="Cover art URL" />
+          </label>
+          <label>
+            <input type="text" name="itunes_url" onChange={this.handleChange} placeholder="iTunes URL" />
+          </label>
+          <label>
+            <input type="text" name="bandcamp_url" onChange={this.handleChange} placeholder="Bandcamp URL" />
+          </label>
+          <label>
+            <input type="text" name="apple_music_url" onChange={this.handleChange} placeholder="Apple Music URL" />
+          </label>
+          <label>
+            <input type="text" name="spotify_url" onChange={this.handleChange} placeholder="Spotify URL" />
+          </label>
+          <label>
+            <select name="type">
+              <option value="EP">EP</option>
+              <option value="LP">LP</option>
+              <option value="Single">Single</option>
+              <option value="Album">Album</option>
+            </select>
+          </label>
+          <label>
+            <input type="submit" value="Save Album" />
+          </label>
         </form>
       </div>
     );
