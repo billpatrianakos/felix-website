@@ -6,6 +6,9 @@ const AuthController  = express.Router();
 const jwtMW           = require(__dirname + '/../lib/jwt-middleware');
 const jwt             = require('jsonwebtoken');
 const config          = require(__dirname + '/../config/app')[process.env.NODE_ENV || 'development'];
+const User            = require(__dirname + '/../models/user');
+const bcrypt          = require('bcrypt');
+
 
 AuthController.route('/?')
   // GET /api/auth/
@@ -14,29 +17,33 @@ AuthController.route('/?')
     res.send('You are autenticated');
   });
 
+
 AuthController.route('/login/?')
   // POST /api/auth/login/
   // ---------------------
   .post((req, res, next) => {
-    const testUser = {
-      username: 'user',
-      password: 'password'
-    };
-    console.log('BODY OF REQUEST: ', req.body);
-    const {username, password} = req.body;
+    const { username, password } = req.body;
 
-    if (username === testUser.username && password === testUser.password) {
-      let token = jwt.sign({id: 1, username: testUser.username}, config.jwt.secret, {expiresIn: '10h'})
-      res.json({
-        error: false,
-        token: token
+    new User({ username: username })
+      .fetch()
+      .then((user) => {
+        if (!user) return res.status(401).json({ error: 'Username or password incorrect', token: null });
+
+        bcrypt.compare(password, user.get('password'))
+          .then((response) => {
+            let token = jwt.sign({ id: user.id, username: user.username }, config.jwt.secret, { expiresIn: '10h' });
+
+            res.json({ error: false, token: token });
+          })
+          .catch((err) => {
+            res.status(401).json({ error: 'Username or password incorrect', token: null });
+          });
+      })
+      .catch((err) => {
+        // Handle find query error
+        res.status(401).json({ error: 'Username or password incorrect', token: null });
       });
-    } else {
-      res.status(401).json({
-        error: 'Username or password is incorrect',
-        token: null
-      });
-    }
   });
+
 
 module.exports = AuthController;
