@@ -33,6 +33,7 @@ dist/
 # be kept separate on individual machines
 ##
 server/db/*.sqlite3
+server/db/dev.sqlite3
 
 ##
 # Ignore potentially sensitive data
