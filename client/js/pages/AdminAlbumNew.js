@@ -13,6 +13,7 @@ class AdminAlbumNew extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { submitSuccessful: false, title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: '' };
   }
 
   componentDidMount() {
@@ -27,7 +28,31 @@ class AdminAlbumNew extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // Submit form logic
+    
+    if (!Auth.loggedIn()) {
+      this.props.history.replace('/');
+    } else {
+      let state = this.state;
+
+      fetch(`${process.env.API_URL}/api/albums`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + Auth.getToken()
+        },
+        body: JSON.stringify(state)
+      }).then(res => res.json())
+        .then(res => {
+          if (res.error) {
+            alert('ERROR: ' + res.message);
+          } else {
+            this.setState({
+              submitSuccessful: true, title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: ''
+            });
+          }
+        });
+    }
   }
 
   render() {
@@ -39,31 +64,32 @@ class AdminAlbumNew extends Component {
         <h2>New Album Form</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
-            <input type="text" name="title" onChange={this.handleChange} placeholder="Title" />
+            <input type="text" name="title" value={this.state.title} onChange={this.handleChange} placeholder="Title" />
           </label>
           <label>
-            <input type="date" name="release_date" onChange={this.handleChange} placeholder="Release Date" />
+            <input type="date" name="release_date" value={this.state.release_date} onChange={this.handleChange} placeholder="Release Date" />
           </label>
           <label>
-            <textarea name="description" onChange={this.handleChange} placeholder="Description"></textarea>
+            <textarea name="description" value={this.state.description} onChange={this.handleChange} placeholder="Description"></textarea>
           </label>
           <label>
-            <input type="text" name="cover_art" onChange={this.handleChange} placeholder="Cover art URL" />
+            <input type="text" name="cover_art" value={this.state.cover_art} onChange={this.handleChange} placeholder="Cover art URL" />
           </label>
           <label>
-            <input type="text" name="itunes_url" onChange={this.handleChange} placeholder="iTunes URL" />
+            <input type="text" name="itunes_url" value={this.state.itunes_url} onChange={this.handleChange} placeholder="iTunes URL" />
           </label>
           <label>
-            <input type="text" name="bandcamp_url" onChange={this.handleChange} placeholder="Bandcamp URL" />
+            <input type="text" name="bandcamp_url" value={this.state.bandcamp_url} onChange={this.handleChange} placeholder="Bandcamp URL" />
           </label>
           <label>
-            <input type="text" name="apple_music_url" onChange={this.handleChange} placeholder="Apple Music URL" />
+            <input type="text" name="apple_music_url" value={this.state.apple_music_url} onChange={this.handleChange} placeholder="Apple Music URL" />
           </label>
           <label>
-            <input type="text" name="spotify_url" onChange={this.handleChange} placeholder="Spotify URL" />
+            <input type="text" name="spotify_url" value={this.state.spotify_url} onChange={this.handleChange} placeholder="Spotify URL" />
           </label>
           <label>
-            <select name="type">
+            <select name="type" value={this.state.type} onChange={this.handleChange}>
+              <option value=''>Album type</option>
               <option value="EP">EP</option>
               <option value="LP">LP</option>
               <option value="Single">Single</option>
