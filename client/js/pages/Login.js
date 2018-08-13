@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 import AuthService from '../services/AuthService';
+import { Helmet } from 'react-helmet';
 
 class Login extends Component {
   constructor() {
@@ -10,14 +11,9 @@ class Login extends Component {
     this.handleChange     = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.Auth             = new AuthService(process.env.API_URL);
-
-    // this.state = {
-    //   username: null,
-    //   password: null
-    // };
   }
 
-  UNSAFE_componentWillMount() { // componentWillMount?
+  UNSAFE_componentWillMount() { // componentDidMount?
     if (this.Auth.loggedIn()) {
       this.props.history.replace('/'); // Redirect to admin page if already logged in and trying to access login page
     }
@@ -44,6 +40,9 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>Log in | Admin Panel | Felix & Friends</title>
+        </Helmet>
         <form onSubmit={this.handleFormSubmit}>
           <input
             className=""
