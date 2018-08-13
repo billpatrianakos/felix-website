@@ -3,10 +3,55 @@
 
 const express           = require('express');
 const AlbumsController  = express.Router();
+const Album             = require(__dirname + '/../models/album');
+const jwtMW           = require(__dirname + '/../lib/jwt-middleware');
+const jwt             = require('jsonwebtoken');
+const config          = require(__dirname + '/../config/app')[process.env.NODE_ENV || 'development'];
 
 AlbumsController.route('/?')
+  // GET /api/albums/
+  // ----------------
+  // Fetch all album records
   .get((req, res, next) => {
-    res.send('Finish this route');
+    new Album().fetchAll()
+      .then((albums) => {
+        res.json({
+          error: false,
+          albums: albums.toJSON()
+        });
+      })
+      .catch(err => {
+        res.json({
+          error: true,
+          message: err
+        });
+      });
+  })
+  // POST /api/albums/
+  // -----------------
+  // Create a new album record
+  .post(jwtMW, (req, res, next) => {
+    new Album({
+      title: req.body.title,
+      release_date: req.body.release_date,
+      description: req.body.description,
+      cover_art: req.body.cover_art,
+      itunes_url: req.body.itunes_url,
+      bandcamp_url: req.body.bandcamp_url,
+      apple_music_url: req.body.apple_music_url,
+      spotify_url: req.body.spotify_url,
+      type: req.body.type
+    })
+    .save()
+    .then(album => {
+      res.json({ error: false, album: album.toJSON() });
+    })
+    .catch(err => {
+      res.json({
+        error: true,
+        message: err
+      });
+    });
   });
 
 module.exports = AlbumsController;
