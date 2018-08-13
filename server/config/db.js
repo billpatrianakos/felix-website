@@ -1,7 +1,7 @@
 // Database setup
 // ==============
 
-const knex      = require('knex')(require(__dirname + '/../knexfile')[process.env.NODE_ENV]);
+const knex      = require('knex')(require(__dirname + '/../knexfile')[process.env.NODE_ENV || 'development']);
 const Bookshelf = require('bookshelf')(knex);
 
 Bookshelf.plugin('registry');
