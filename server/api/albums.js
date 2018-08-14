@@ -47,11 +47,40 @@ AlbumsController.route('/?')
       res.json({ error: false, album: album.toJSON() });
     })
     .catch(err => {
-      res.json({
-        error: true,
-        message: err
-      });
+      res.json({ error: true, message: err });
     });
   });
+
+AlbumsController.route('/:id/?')
+  // GET /api/albums/id/
+  // -------------------
+  // Get details of existing album
+  .get((req, res, next) => {
+    new Album({ id: req.params.id })
+      .fetch({ require: true })
+      .then(album => {
+        res.json({ error: false, album: album.toJSON() });
+      })
+      .catch(err => {
+        res.json({ error: true, message: 'Album not found' });
+      });
+  })
+  // PATCH /api/albums/:id/
+  // ----------------------
+  // Update an existing album
+  .patch(jwtMW, (req, res, next) => {
+    new Album({ id: req.params.id })
+      .fetch({ require: true })
+      .then(album => {
+        album.set(req.body);
+        return album.save();
+      })
+      .then(album => {
+        res.json({ error: false, album: album.toJSON() });
+      })
+      .catch(err => {
+        res.json({ error: true, message: err });
+      });
+  })
 
 module.exports = AlbumsController;
