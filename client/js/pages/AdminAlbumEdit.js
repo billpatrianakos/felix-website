@@ -5,21 +5,41 @@ import React, { Component } from 'react';
 import withAuth from '../hoc/withAuth';
 import { Helmet } from 'react-helmet';
 import AuthService from '../services/AuthService';
+import { withRouter } from 'react-router-dom';
 
 const Auth = new AuthService(process.env.API_URL);
 
 class AdminAlbumEdit extends Component {
-  constructor() {
-    // console.log(match);
-    super();
+  constructor(props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { submitSuccessful: false, title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: '' };
+    this.state = { title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: '' };
   }
 
   componentDidMount() {
     if (!Auth.loggedIn()) {
       this.props.history.replace('/');
+    } else {
+      fetch(`${process.env.API_URL}/api/albums/${this.props.match.params.id}`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.error) {
+            alert('ERROR: ' + res.message);
+          } else {
+            this.setState({
+              title: res.album.title,
+              release_date: res.album.release_date,
+              description: res.album.description,
+              cover_art: res.album.cover_art,
+              itunes_url: res.album.itunes_url,
+              bandcamp_url: res.album.bandcamp_url,
+              apple_music_url: res.album.apple_music_url,
+              spotify_url: res.album.spotify_url,
+              type: res.album.type
+            });
+          }
+        });
     }
   }
 
@@ -35,8 +55,8 @@ class AdminAlbumEdit extends Component {
     } else {
       let state = this.state;
 
-      fetch(`${process.env.API_URL}/api/albums`, {
-        method: 'POST',
+      fetch(`${process.env.API_URL}/api/albums/${this.props.match.params.id}`, {
+        method: 'PATCH',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -49,7 +69,15 @@ class AdminAlbumEdit extends Component {
             alert('ERROR: ' + res.message);
           } else {
             this.setState({
-              submitSuccessful: true, title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: ''
+              title: res.album.title,
+              release_date: res.album.release_date,
+              description: res.album.description,
+              cover_art: res.album.cover_art,
+              itunes_url: res.album.itunes_url,
+              bandcamp_url: res.album.bandcamp_url,
+              apple_music_url: res.album.apple_music_url,
+              spotify_url: res.album.spotify_url,
+              type: res.album.type
             });
           }
         });
@@ -57,13 +85,12 @@ class AdminAlbumEdit extends Component {
   }
 
   render() {
-    // console.log(match);
     return (
       <div>
         <Helmet>
-          <title>New Album | Admin Panel | Felix & Friends</title>
+          <title>Edit Album | Admin Panel | Felix & Friends</title>
         </Helmet>
-        <h2>New Album Form</h2>
+        <h2>Edit Record: {this.state.title}</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
             <input type="text" name="title" value={this.state.title} onChange={this.handleChange} placeholder="Title" />
@@ -107,4 +134,4 @@ class AdminAlbumEdit extends Component {
   }
 }
 
-export default withAuth(AdminAlbumEdit);
+export default withAuth(withRouter(AdminAlbumEdit));
