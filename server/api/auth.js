@@ -25,10 +25,8 @@ AuthController.route('/login/?')
     const { username, password } = req.body;
 
     new User({ username: username })
-      .fetch()
+      .fetch({ require: true })
       .then((user) => {
-        if (!user) return res.status(401).json({ error: 'Username or password incorrect', token: null });
-
         bcrypt.compare(password, user.get('password'))
           .then((response) => {
             let token = jwt.sign({ id: user.id, username: user.username }, config.jwt.secret, { expiresIn: '10h' });
