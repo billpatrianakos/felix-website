@@ -8,12 +8,13 @@ const jwtMW           = require(__dirname + '/../lib/jwt-middleware');
 const jwt             = require('jsonwebtoken');
 const config          = require(__dirname + '/../config/app')[process.env.NODE_ENV || 'development'];
 
+const Promise = require('bluebird'); // TODO: test if we can remove this with Node 10+
 AlbumsController.route('/?')
   // GET /api/albums/
   // ----------------
   // Fetch all album records
   .get((req, res, next) => {
-    new Album().fetchAll()
+    new Album().fetchAll({ withRelated: ['tracklist'] })
       .then((albums) => {
         res.json({
           error: false,
@@ -43,6 +44,9 @@ AlbumsController.route('/?')
       type: req.body.type
     })
     .save()
+    .tap(album => {
+      Promise.map(req.body.tracklist, (track) => album.related('tracklist').create(track));
+    })
     .then(album => {
       res.json({ error: false, album: album.toJSON() });
     })
