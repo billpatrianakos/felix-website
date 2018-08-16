@@ -29,6 +29,10 @@ __Database seeds__
 
 `cd` into `./server` and run `knex seed:run`
 
+## Usage
+
+The admin section is pretty straightforward. Just go to `localhost:8080/admin` to access the admin panel that's also built with React. If you're security conscious then just delete the `/admin` folder from the server and no one will have access to it (including you).
+
 ## Deployment
 
 This site was built with PM2 in mind. If you want to deploy to Heroku or something I'm sure that'll work but deployment is really up to you. There is/will be some deployment script examples to get your started deploying to your own server but this part is up to you.
