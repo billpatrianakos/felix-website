@@ -62,10 +62,6 @@ class AdminAlbumNew extends Component {
           if (res.error) {
             alert('ERROR: ' + res.message);
           } else {
-            // this.setState({
-            //   submitSuccessful: true, title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: ''
-            // });
-            // Redirect to all albums page
             this.props.history.replace('/albums');
           }
         });
@@ -142,10 +138,6 @@ class AdminAlbumNew extends Component {
             <input type="submit" value="Save Album" />
           </label>
         </form>
-        <p>Tracklist:</p>
-        <ul>
-          { this.state.tracklist.map((track, i) => <li key={i}>{track.title}</li> ) }
-        </ul>
       </div>
     );
   }

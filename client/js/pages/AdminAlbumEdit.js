@@ -6,6 +6,7 @@ import withAuth from '../hoc/withAuth';
 import { Helmet } from 'react-helmet';
 import AuthService from '../services/AuthService';
 import { withRouter } from 'react-router-dom';
+import Track from '../components/Track';
 
 const Auth = new AuthService(process.env.API_URL);
 
@@ -14,7 +15,20 @@ class AdminAlbumEdit extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { title: '', release_date: '', description: '', cover_art: '', itunes_url: '', bandcamp_url: '', apple_music_url: '', spotify_url: '', type: '' };
+    this.addTrack     = this.addTrack.bind(this);
+    this.updateTrack  = this.updateTrack.bind(this);
+    this.state        = { 
+      title: '',
+      release_date: '',
+      description: '',
+      cover_art: '',
+      itunes_url: '',
+      bandcamp_url: '',
+      apple_music_url: '',
+      spotify_url: '',
+      type: '',
+      tracklist: []
+    };
   }
 
   componentDidMount() {
@@ -36,7 +50,8 @@ class AdminAlbumEdit extends Component {
               bandcamp_url: res.album.bandcamp_url,
               apple_music_url: res.album.apple_music_url,
               spotify_url: res.album.spotify_url,
-              type: res.album.type
+              type: res.album.type,
+              tracklist: res.album.tracklist
             });
           }
         });
@@ -84,6 +99,26 @@ class AdminAlbumEdit extends Component {
     }
   }
 
+  addTrack(e) {
+    e.preventDefault();
+
+    let state = this.state;
+    state.tracklist.push({
+      track_number: '',
+      title: '',
+      notes: ''
+    });
+    this.setState(state);
+  }
+
+  updateTrack(event, trackNumber) {
+    let state = this.state;
+
+    state.tracklist[trackNumber - 1][event.target.name] = event.target.value;
+    state.tracklist[trackNumber - 1].track_number = trackNumber;
+    this.setState(state);
+  }
+
   render() {
     return (
       <div>
@@ -125,6 +160,11 @@ class AdminAlbumEdit extends Component {
               <option value="Album">Album</option>
             </select>
           </label>
+          <hr />
+          <h3>Tracklist</h3>
+          { this.state.tracklist.map((track, i) => <Track title={track.title} notes={track.notes} key={i} trackOrder={track.track_number} updateTrack={this.updateTrack} />) }
+          <button onClick={this.addTrack}>Add Track</button>
+          <hr />
           <label>
             <input type="submit" value="Save Album" />
           </label>
