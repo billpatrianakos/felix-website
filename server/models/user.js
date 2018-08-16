@@ -8,7 +8,8 @@ let User = Bookshelf.Model.extend({
   hasTimestamps: true,
   posts: function() {
     return this.hasMany('Post');
-  }
+  },
+  hidden: ['username', 'password', 'created_at', 'updated_at']
 });
 
 module.exports = Bookshelf.model('User', User);
