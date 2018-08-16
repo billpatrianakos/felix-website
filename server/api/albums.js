@@ -4,11 +4,10 @@
 const express           = require('express');
 const AlbumsController  = express.Router();
 const Album             = require(__dirname + '/../models/album');
-const jwtMW           = require(__dirname + '/../lib/jwt-middleware');
-const jwt             = require('jsonwebtoken');
-const config          = require(__dirname + '/../config/app')[process.env.NODE_ENV || 'development'];
+const jwtMW             = require(__dirname + '/../lib/jwt-middleware');
 
 const Promise = require('bluebird'); // TODO: test if we can remove this with Node 10+
+
 AlbumsController.route('/?')
   // GET /api/albums/
   // ----------------
