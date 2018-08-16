@@ -10,6 +10,8 @@ import Login                                            from './pages/Login';
 import AdminAlbum                                       from './pages/AdminAlbum';
 import AdminAlbumNew                                    from './pages/AdminAlbumNew';
 import AdminAlbumEdit                                   from './pages/AdminAlbumEdit';
+import AdminPost                                        from './pages/AdminPost';
+import AdminPostNew                                     from './pages/AdminPostNew';
 
 class App extends Component {
   render() {
@@ -25,6 +27,12 @@ class App extends Component {
                 <li><Link to="/albums/new">New Album</Link></li>
               </ul>
             </li>
+            <li>
+              <Link to="/posts">Posts</Link>
+              <ul>
+                <li><Link to="/posts/new">New Post</Link></li>
+              </ul>
+            </li>
           </ul>
           <Route exact path="/" component={AdminHome}/>
           <Route path="/login" component={Login} />
@@ -32,6 +40,11 @@ class App extends Component {
             <Route exact path="/albums" component={AdminAlbum} />
             <Route path="/albums/new" component={AdminAlbumNew} />
             <Route path="/albums/:id/edit" component={AdminAlbumEdit} />
+          </Switch>
+          <Switch>
+            <Route exact path="/posts" component={AdminPost} />
+            <Route path="/posts/new" component={AdminPostNew} />
+            <Route path="/posts/:id/edit" component={AdminPostNew} />
           </Switch>
         </div>
       </Router>
