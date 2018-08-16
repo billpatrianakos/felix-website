@@ -61,7 +61,7 @@ AlbumsController.route('/:id/?')
   // Get details of existing album
   .get((req, res, next) => {
     new Album({ id: req.params.id })
-      .fetch({ require: true })
+      .fetch({ require: true, withRelated: 'tracklist' })
       .then(album => {
         res.json({ error: false, album: album.toJSON() });
       })
