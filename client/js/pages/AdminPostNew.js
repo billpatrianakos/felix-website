@@ -19,7 +19,7 @@ class AdminPostNew extends Component {
       title: '',
       user_id: Auth.getProfile().id,
       body_markdown: '',
-      featured: null,
+      featured: false,
       slug: ''
     };
   }
@@ -38,7 +38,7 @@ class AdminPostNew extends Component {
               title: res.post.title,
               user_id: res.post.author.id,
               body_markdown: res.post.body_markdown,
-              featured:res.post.featured,
+              featured: res.post.featured,
               slug: res.post.slug
             });
           }
