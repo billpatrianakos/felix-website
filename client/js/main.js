@@ -4,7 +4,7 @@
 import '../less/style.less'; // Removed by Webpack at compile time
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Nav from './components/Nav';
 import HomeContainer from './pages/Home';
@@ -22,7 +22,10 @@ class App extends Component {
           </Helmet>
           <Nav />
           <Route exact path="/" component={HomeContainer}/>
-          <Route path="/log" component={LogContainer}/>
+          <Switch>
+            <Route exact path="/log" component={LogContainer}/>
+            <Route path="/log/:slug" component={LogContainer}/>
+          </Switch>
         </div>
       </Router>
     );

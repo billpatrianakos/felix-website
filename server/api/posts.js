@@ -12,11 +12,14 @@ PostsController.route('/?')
   // Fetch first page of blog posts
   .get((req, res, next) => {
     new Post()
+      .orderBy('-featured')
+      .orderBy('-created_at')
       .fetchPage({ withRelated: ['author'] })
       .then(posts => {
         res.json({ error: false, posts: posts });
       })
       .catch(err => {
+        console.log(err);
         res.json({ error: true, message: err });
       });
   })
@@ -39,12 +42,15 @@ PostsController.route('/:id/?')
   // -------------------
   // Fetch single post
   .get((req, res, next) => {
-    new Post({ id: req.params.id })
+    let key = !parseInt(req.params.id) ? 'slug' : 'id';
+    new Post()
+      .where({ [key]: req.params.id })
       .fetch({ require: true, withRelated: ['author'] })
       .then(post => {
         res.json({ error: false, post: post });
       })
       .catch(err => {
+        console.log(err);
         res.json({ error: true, message: err });
       });
   })
