@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import AdminHome                                        from './pages/AdminHome';
 import Login                                            from './pages/Login';
 import AdminAlbum                                       from './pages/AdminAlbum';
-import AdminAlbumNew                                    from './pages/AdminAlbumNew';
 import AdminAlbumEdit                                   from './pages/AdminAlbumEdit';
 import AdminPost                                        from './pages/AdminPost';
 import AdminPostNew                                     from './pages/AdminPostNew';
@@ -38,7 +37,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Switch>
             <Route exact path="/albums" component={AdminAlbum} />
-            <Route path="/albums/new" component={AdminAlbumNew} />
+            <Route path="/albums/new" component={AdminAlbumEdit} />
             <Route path="/albums/:id/edit" component={AdminAlbumEdit} />
           </Switch>
           <Switch>

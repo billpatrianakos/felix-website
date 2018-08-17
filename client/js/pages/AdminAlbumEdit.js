@@ -17,6 +17,7 @@ class AdminAlbumEdit extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addTrack     = this.addTrack.bind(this);
     this.updateTrack  = this.updateTrack.bind(this);
+    this.isNewAlbum   = this.isNewAlbum.bind(this);
     this.state        = { 
       title: '',
       release_date: '',
@@ -34,7 +35,7 @@ class AdminAlbumEdit extends Component {
   componentDidMount() {
     if (!Auth.loggedIn()) {
       this.props.history.replace('/');
-    } else {
+    } else if (!this.isNewAlbum()) {
       fetch(`${process.env.API_URL}/api/albums/${this.props.match.params.id}`)
         .then(res => res.json())
         .then(res => {
@@ -68,10 +69,12 @@ class AdminAlbumEdit extends Component {
     if (!Auth.loggedIn()) {
       this.props.history.replace('/');
     } else {
-      let state = this.state;
+      const state       = this.state;
+      const isNewAlbum  = this.isNewAlbum();
+      const endpoint    = isNewAlbum ? '' : `${this.props.match.params.id}`;
 
-      fetch(`${process.env.API_URL}/api/albums/${this.props.match.params.id}`, {
-        method: 'PATCH',
+      fetch(`${process.env.API_URL}/api/albums/${endpoint}`, {
+        method: isNewAlbum ? 'POST' : 'PATCH',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -83,17 +86,7 @@ class AdminAlbumEdit extends Component {
           if (res.error) {
             alert('ERROR: ' + res.message);
           } else {
-            this.setState({
-              title: res.album.title,
-              release_date: res.album.release_date,
-              description: res.album.description,
-              cover_art: res.album.cover_art,
-              itunes_url: res.album.itunes_url,
-              bandcamp_url: res.album.bandcamp_url,
-              apple_music_url: res.album.apple_music_url,
-              spotify_url: res.album.spotify_url,
-              type: res.album.type
-            });
+            this.props.history.replace('/albums');
           }
         });
     }
@@ -104,7 +97,7 @@ class AdminAlbumEdit extends Component {
 
     let state = this.state;
     state.tracklist.push({
-      track_number: '',
+      track_number: this.state.tracklist.length + 1,
       title: '',
       notes: ''
     });
@@ -119,13 +112,17 @@ class AdminAlbumEdit extends Component {
     this.setState(state);
   }
 
+  isNewAlbum() {
+    return !(this.props.match && this.props.match.params && this.props.match.params.id);
+  }
+
   render() {
     return (
       <div>
         <Helmet>
-          <title>Edit Album | Admin Panel | Felix & Friends</title>
+          <title>{ this.isNewAlbum() ? 'New' : 'Edit' } Album | Admin Panel | Felix & Friends</title>
         </Helmet>
-        <h2>Edit Record: {this.state.title}</h2>
+        <h2>{ this.isNewAlbum() ? 'New' : 'Edit' } Record: {this.state.title}</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
             <input type="text" name="title" value={this.state.title} onChange={this.handleChange} placeholder="Title" />
