@@ -5,6 +5,7 @@ const express           = require('express');
 const AlbumsController  = express.Router();
 const Album             = require(__dirname + '/../models/album');
 const jwtMW             = require(__dirname + '/../lib/jwt-middleware');
+const _                 = require('lodash');
 
 const Promise = require('bluebird'); // TODO: test if we can remove this with Node 10+
 
@@ -72,11 +73,17 @@ AlbumsController.route('/:id/?')
   // ----------------------
   // Update an existing album
   .patch(jwtMW, (req, res, next) => {
+    let tracklist = req.body.tracklist;
+
+    _.unset(req.body, 'tracklist'); // Remove tracklist from request body
+
     new Album({ id: req.params.id })
       .fetch({ require: true })
       .then(album => {
         album.set(req.body);
-        return album.save();
+        if (tracklist.length) {
+          return album.save().tap(album => Promise.map(tracklist, (track) => album.related('tracklist').create(track)));
+        } else return album.save();
       })
       .then(album => {
         res.json({ error: false, album: album.toJSON() });
@@ -84,6 +91,6 @@ AlbumsController.route('/:id/?')
       .catch(err => {
         res.json({ error: true, message: err });
       });
-  })
+  });
 
 module.exports = AlbumsController;
