@@ -12,7 +12,7 @@ class Nav extends Component {
           <li><Link to="/" className="logo">Website</Link></li>
           <li><Link to="/log">The Log</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/discography">Discography</Link></li>
+          <li><Link to="/albums">Discography</Link></li>
         </ul>
       </nav>
     );
