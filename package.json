@@ -86,6 +86,7 @@
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
     "pg": "^7.4.3",
+    "react-transition-group": "^1.2.1",
     "trim-html": "^0.1.9"
   }
 }
