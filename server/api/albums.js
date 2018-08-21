@@ -14,7 +14,9 @@ AlbumsController.route('/?')
   // ----------------
   // Fetch all album records
   .get((req, res, next) => {
-    new Album().fetchAll({ withRelated: ['tracklist'] })
+    new Album()
+      .orderBy('release_date')
+      .fetchAll({ withRelated: ['tracklist'] })
       .then((albums) => {
         res.json({
           error: false,
@@ -22,10 +24,7 @@ AlbumsController.route('/?')
         });
       })
       .catch(err => {
-        res.json({
-          error: true,
-          message: err
-        });
+        res.json({ error: true, message: err });
       });
   })
   // POST /api/albums/
