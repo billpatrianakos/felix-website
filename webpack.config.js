@@ -95,7 +95,8 @@ module.exports = (env, argv) => {
         chunkFilename: '[id].css'
       }),
       new webpack.DefinePlugin({
-        'process.env.API_URL': JSON.stringify(apiUrl)
+        'process.env.API_URL': JSON.stringify(apiUrl),
+        'process.env.ABOUT_TEXT': JSON.stringify('The about text')
       })
     ]
   }
