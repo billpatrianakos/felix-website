@@ -68,4 +68,21 @@ PostsController.route('/:id/?')
       });
   });
 
+PostsController.route('/page/:page/?')
+  // GET /api/posts/page/:page/
+  // --------------------------
+  // Get page X of results
+  .get((req, res, next) => {
+    new Post()
+      .orderBy('-created_at')
+      .fetchPage({ page: req.params.page, withRelated: ['author'] })
+      .then(posts => {
+        res.json({ error: false, posts: posts });
+      })
+      .catch(err => {
+        console.log(err);
+        res.json({ error: true, message: err });
+      });
+  });
+
 module.exports = PostsController;
