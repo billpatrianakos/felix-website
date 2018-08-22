@@ -11,6 +11,7 @@ import HomeContainer from './pages/Home';
 import LogContainer from './pages/Log';
 import AlbumContainer from './pages/Albums';
 import AlbumDetail from './pages/AlbumDetail';
+import AboutContainer from './pages/AboutContainer';
 
 // Main container for the entire application
 // -----------------------------------------
@@ -28,6 +29,7 @@ class App extends Component {
           </Helmet>
           <Nav />
           <Route exact path="/" component={HomeContainer}/>
+          <Route exact path="/about" component={AboutContainer}/>
           <Switch location={this.props.location}>
             <Route exact path="/log" component={LogContainer}/>
             <Route path="/log/:slug" component={LogContainer}/>
