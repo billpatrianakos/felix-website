@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import _ from 'lodash';
 
 class AlbumContainer extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class AlbumContainer extends Component {
     this.state = {
       album: {
         title: '',
-        release_date: ''
+        release_date: '',
+        tracklist: []
       }
     };
   }
@@ -40,7 +42,18 @@ class AlbumContainer extends Component {
         </Helmet>
         <Link to="/albums">Back</Link>
         <h2>{this.state.album.title}</h2>
+        <ul>
+          { _.sortBy(this.state.album.tracklist, ['track_number']).map((track, i) => <Track track={track} key={i} />) }
+        </ul>
       </div>
+    );
+  }
+}
+
+class Track extends Component {
+  render() {
+    return (
+      <li>{this.props.track.track_number}. {this.props.track.title}</li>
     );
   }
 }

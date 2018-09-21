@@ -20,12 +20,19 @@ class App extends Component {
     super(props);
   }
 
+  fromToDates() {
+    const currentYear = new Date().getFullYear();
+
+    if (currentYear > 2018) return `2018 - ${currentYear}`;
+    else return '2018';
+  }
+
   render() {
     return(
       <Router>
         <div className="grid">
           <Helmet>
-            <title>Homepage</title>
+            <title>Felix & Friends</title>
           </Helmet>
           <Nav />
           <Route exact path="/" component={HomeContainer}/>
@@ -38,6 +45,14 @@ class App extends Component {
             <Route exact path="/albums" component={AlbumContainer} />
             <Route path="/albums/:id" component={AlbumDetail} />
           </Switch>
+          <footer>
+            <p>
+              <small>
+                ({this.fromToDates()}) &mdash; Felix & Friends can be your friends too.<br />
+                <a href="https://github.com/billpatrianakos/felix-website">Website source</a>
+              </small>
+            </p>
+          </footer>
         </div>
       </Router>
     );

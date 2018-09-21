@@ -54,6 +54,7 @@ AlbumsController.route('/?')
     });
   });
 
+
 AlbumsController.route('/:id/?')
   // GET /api/albums/id/
   // -------------------
