@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import trimHTML from 'trim-html';
+import striptags from 'striptags';
 
 class LogContainer extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class LogContainer extends Component {
         <Helmet>
           <title>Log | Felix & Friends</title>
         </Helmet>
+        <h2 className="page-title">The Log</h2>
         { this.state.posts.map((post, i) => <Post slug={post.slug} title={post.title} created_at={post.created_at} body={post.body} author={post.author} singlePost={this.isSinglePost()} key={i} />) }
       </section>
     );
@@ -57,16 +59,16 @@ class LogContainer extends Component {
 
 class Post extends Component {
   render() {
-    let postBody = this.props.singlePost ? this.props.body : trimHTML(this.props.body, { limit: 450, suffix: '...' }).html;
+    let postBody = this.props.singlePost ? this.props.body : `<p>${trimHTML(striptags(this.props.body), { limit: 450, suffix: '...' }).html}</p>`;
     return (
-      <div className="post post-list-item">
+      <div className={`post ${this.props.isSinglePost ? '' : 'post-list-item'}`}>
         <header>
-          <h2>{ this.props.singlePost ? this.props.title : <Link to={`/log/${this.props.slug}`}>{this.props.title}</Link> }</h2>
+          <h2 className={this.isSinglePost ? '' : 'h3'}>{ this.props.singlePost ? this.props.title : <Link to={`/log/${this.props.slug}`}>{this.props.title}</Link> }</h2>
           <p className="byline">
             <time dateTime={this.props.created_at}>{moment(this.props.created_at).format('MMMM Do YYYY')}</time> by {this.props.author.first_name}
           </p>
         </header>
-        <div dangerouslySetInnerHTML={{__html: postBody}} />
+        <div className="post-body" dangerouslySetInnerHTML={{__html: postBody}} />
       </div>
     );
   }

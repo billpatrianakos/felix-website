@@ -4,7 +4,7 @@
 // from [Typebase](https://github.com/devinhunt/typebase.css/blob/master/src/typebase.less)
  
 
-@base-font-size: 24;
+@base-font-size: 26;
 @line-height: 1.5;
 @leading: @line-height * 1rem;
 @scale: 1.414;
@@ -30,7 +30,7 @@ html {
 }
 
 // Copy & Lists
-p {
+.p() {
   font-family: @body-font;
   font-weight: 400;
   line-height: @leading;
@@ -41,6 +41,10 @@ p {
   &:first-child {
     margin-top: 0;
   }
+}
+
+p {
+  .p();
 }
 
 ul, ol {
