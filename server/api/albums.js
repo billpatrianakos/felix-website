@@ -15,7 +15,7 @@ AlbumsController.route('/?')
   // Fetch all album records
   .get((req, res, next) => {
     new Album()
-      .orderBy('release_date')
+      .orderBy('-release_date')
       .fetchAll({ withRelated: ['tracklist'] })
       .then((albums) => {
         res.json({
