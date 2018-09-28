@@ -29,11 +29,14 @@ class AlbumContainer extends Component {
 
   render() {
     return (
-      <div className="page">
+      <div className="main-content">
         <Helmet>
           <title>Discography | Felix & Friends</title>
         </Helmet>
-        { this.state.albums.map((album, i) => <Album album={album} key={i} />) }
+        <h2 className="page-title">Discography</h2>
+        <div className="gallery-view">
+          { this.state.albums.map((album, i) => <Album album={album} key={i} />) }
+        </div>
       </div>
     );
   }

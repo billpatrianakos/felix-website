@@ -36,15 +36,16 @@ class AlbumContainer extends Component {
 
   render() {
     return (
-      <div className="page">
+      <div className="main-content">
         <Helmet>
           <title>{this.state.album.title} ({moment(this.state.album.release_date).format('YYYY')}) | Discography | Felix & Friends</title>
         </Helmet>
-        <Link to="/albums">Back</Link>
         <h2>{this.state.album.title}</h2>
+        <p>{this.state.album.description}</p>
         <ul>
           { _.sortBy(this.state.album.tracklist, ['track_number']).map((track, i) => <Track track={track} key={i} />) }
         </ul>
+        <p><Link to="/albums">&larr; Back</Link></p>
       </div>
     );
   }
