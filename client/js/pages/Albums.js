@@ -5,11 +5,16 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import _ from 'lodash';
 
 class AlbumContainer extends Component {
   constructor() {
     super();
-    this.state = { albums: [] };
+    this.updateFilters = this.updateFilters.bind(this);
+    this.state = {
+      albums: [],
+      filters: []
+    };
   }
 
   componentDidMount() {
@@ -19,7 +24,9 @@ class AlbumContainer extends Component {
         if (res.error) {
           alert('ERROR: ' + res.message);
         } else {
-          this.setState({ albums: res.albums });
+          let state = this.state;
+          state.albums = res.albums;
+          this.setState(state);
         }
       })
       .catch(err => {
@@ -27,15 +34,36 @@ class AlbumContainer extends Component {
       });
   }
 
+  updateFilters(e) {
+    let state = this.state;
+    if (e.target.checked) {
+      state.filters.push(e.target.name);
+    } else {
+      state.filters.splice(state.filters.indexOf(e.target.name), 1);
+    }
+    this.setState(state);
+  }
+
   render() {
+    const filters = this.state.filters;
+    const albums  = filters.length > 0 ? this.state.albums.filter(album => _.includes(filters, album.type.toLowerCase())) : this.state.albums;
     return (
       <div className="main-content">
         <Helmet>
           <title>Discography | Felix & Friends</title>
         </Helmet>
         <h2 className="page-title">Discography</h2>
+        <form className="album-filter">
+          <label>
+            Filter by release type: 
+          </label>
+          <label>Album  <input type="checkbox" name="album" onChange={this.updateFilters}   checked={this.state.filters.album} /></label>
+          <label>Single <input type="checkbox" name="single" onChange={this.updateFilters}  checked={this.state.filters.album} /></label>
+          <label>EP     <input type="checkbox" name="ep" onChange={this.updateFilters}      checked={this.state.filters.album} /></label>
+          <label>LP     <input type="checkbox" name="lp" onChange={this.updateFilters}      checked={this.state.filters.album} /></label>
+        </form>
         <div className="gallery-view">
-          { this.state.albums.map((album, i) => <Album album={album} key={i} />) }
+          { albums.map((album, i) => <Album album={album} key={i} />) }
         </div>
       </div>
     );
