@@ -1,5 +1,5 @@
 // FOR USE WITH PM2 FOR DEPLOYMENT
-// CUSTOMIZE TO SUIT YOUR NEEDS.
+// CUSTOMIZE TO SUIT YOUR NEEDS AND RENAME AS `ecosystem.config.js`
 module.exports = {
   apps : [{
     name: 'REPLACE_ME',
