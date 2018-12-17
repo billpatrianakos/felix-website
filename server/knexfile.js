@@ -33,11 +33,13 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: 'localhost',
+      database: 'REPLACE_ME',
+      port: 5432, // On some systems it's 5433 - Run psql on the server and run the \conninfo command to find out your host and port
+      user:     'REPLACE_ME',
+      password: 'REPLACE_ME'
     },
     seeds: {
       directory: './db/seeds/production'

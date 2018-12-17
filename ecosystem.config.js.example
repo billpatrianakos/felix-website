@@ -2,12 +2,11 @@
 // CUSTOMIZE TO SUIT YOUR NEEDS AND RENAME AS `ecosystem.config.js`
 module.exports = {
   apps : [{
-    name: 'REPLACE_ME',
-    script: 'server/index.js',
-    cwd: 'REPLACE_ME',
+    name: 'REPLACE_ME', // Just give your app a name. Used as a label when pm2 starts and lists your apps
+    script: 'index.js',
+    cwd: 'REPLACE_ME', // Should be: /absolute/path/to/your/app/current/server
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
-    args: 'one two',
     instances: 1,
     autorestart: true,
     watch: false,
@@ -16,18 +15,23 @@ module.exports = {
       NODE_ENV: 'development'
     },
     env_production: {
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      PORT: 8080, // You can change this if you want
+      CORS_ORIGIN: 'http://YOUR_SITE.com', // Replace with appropriate http or https site
+      SESSION_SECRET: 'GENERATE_63_CHAR_LONG_SESSION_SECRET',
+      JWT_SECRET: 'GENERATE_126_CHAR_LONG_JWT_SECRET'
     }
   }],
 
   deploy : {
     production : {
-      user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+      user : 'REPLACE_ME', // Your ssh user (usually the one that will do the deploy - the one that can run the commands you need on the remote server)
+      host : '12.34.456', // Your remote IP
+      ref  : 'origin/master', // Remote name and branch. Can be anything
+      repo : 'git@github.com:repo.git', // does not have to be hosted on github. Replace with something like `/path/to/private/repo/on/server.git` if hosting your own
+      path : '/var/www/production', // Replace with path to where repo will be cloned to on remote server. Usually same as `cwd` path but leaves off everything from `current` onward
+      // If not using nvm on the server then remove the first part that exports the nvm Node path and leave the rest
+      'post-deploy' : 'export PATH=$PATH:/home/YOUR_USER/.nvm/versions/node/NODE_VERSION/bin/ && yarn install && pm2 reload ecosystem.config.js --env production && NODE_ENV=production knex migrate:latest --knexfile server/knexfile.js && NODE_ENV=production knex seed:run --knexfile server/knexfile.js'
     }
   }
 };
