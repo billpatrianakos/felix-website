@@ -50,7 +50,7 @@ class AlbumContainer extends Component {
     return (
       <div className="main-content">
         <Helmet>
-          <title>Discography | Felix & Friends</title>
+          <title>Discography | {process.env.SITE_TITLE}</title>
         </Helmet>
         <h2 className="page-title">Discography</h2>
         <form className="album-filter">

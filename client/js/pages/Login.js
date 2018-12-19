@@ -41,7 +41,7 @@ class Login extends Component {
     return (
       <div>
         <Helmet>
-          <title>Log in | Admin Panel | Felix & Friends</title>
+          <title>Log in | Admin Panel | {process.env.SITE_TITLE}</title>
         </Helmet>
         <form onSubmit={this.handleFormSubmit}>
           <input

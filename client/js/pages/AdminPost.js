@@ -38,7 +38,7 @@ class AdminPost extends Component {
     return (
       <div>
         <Helmet>
-          <title>Posts | Admin Panel | Felix & Friends</title>
+          <title>Posts | Admin Panel | {process.env.SITE_TITLE}</title>
         </Helmet>
         <h2>Posts</h2>
         { this.state.posts.length ? <PostList posts={this.state.posts} /> : <p>No posts to display yet.</p> }

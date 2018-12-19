@@ -38,7 +38,7 @@ class AlbumContainer extends Component {
     return (
       <div className="main-content">
         <Helmet>
-          <title>{this.state.album.title} ({moment(this.state.album.release_date).format('YYYY')}) | Discography | Felix & Friends</title>
+          <title>{this.state.album.title} ({moment(this.state.album.release_date).format('YYYY')}) | Discography | {process.env.SITE_TITLE}</title>
         </Helmet>
         <h2>{this.state.album.title}</h2>
         <p>{this.state.album.description}</p>

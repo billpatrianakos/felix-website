@@ -120,7 +120,7 @@ class AdminAlbumEdit extends Component {
     return (
       <div>
         <Helmet>
-          <title>{ this.isNewAlbum() ? 'New' : 'Edit' } Album | Admin Panel | Felix & Friends</title>
+          <title>{ this.isNewAlbum() ? 'New' : 'Edit' } Album | Admin Panel | {process.env.SITE_TITLE}</title>
         </Helmet>
         <h2>{ this.isNewAlbum() ? 'New' : 'Edit' } Record: {this.state.title}</h2>
         <form onSubmit={this.handleSubmit}>

@@ -50,7 +50,7 @@ class LogContainer extends Component {
     return (
       <section className="main-content">
         <Helmet>
-          <title>Log | Felix & Friends</title>
+          <title>Log | {process.env.SITE_TITLE}</title>
         </Helmet>
         { this.isSinglePost() ? '' : <h2 className="page-title">The Log</h2> }
         { this.state.posts.map((post, i) => <Post slug={post.slug} title={post.title} created_at={post.created_at} body={post.body} author={post.author} singlePost={this.isSinglePost()} featured={post.featured} key={i} />) }

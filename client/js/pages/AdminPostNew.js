@@ -87,7 +87,7 @@ class AdminPostNew extends Component {
     return (
       <div>
         <Helmet>
-          <title>{this.isNewPost() ? 'Create new' : 'Edit'} Post | Admin Panel | Felix & Friends</title>
+          <title>{this.isNewPost() ? 'Create new' : 'Edit'} Post | Admin Panel | {process.env.SITE_TITLE}</title>
         </Helmet>
         <h2>{ this.isNewPost() ? 'New Post' : 'Edit Post' }</h2>
         <form onSubmit={this.handleSubmit}>

@@ -96,7 +96,8 @@ module.exports = (env, argv) => {
       }),
       new webpack.DefinePlugin({
         'process.env.API_URL': JSON.stringify(apiUrl),
-        'process.env.ABOUT_TEXT': JSON.stringify('The about text')
+        'process.env.ABOUT_TEXT': JSON.stringify('The about text'),
+        'process.env.SITE_TITLE': JSON.stringify('Site Title')
       })
     ]
   }

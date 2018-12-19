@@ -36,7 +36,7 @@ class AlbumAdmin extends Component {
     return (
       <div>
         <Helmet>
-          <title>Albums | Admin Panel | Felix & Friends</title>
+          <title>Albums | Admin Panel | {process.env.SITE_TITLE}</title>
         </Helmet>
         <h2>Album Admin Page</h2>
         { this.state.albums.length ? <AlbumList albums={this.state.albums} /> : null }
