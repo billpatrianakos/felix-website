@@ -41,3 +41,6 @@ server/db/dev.sqlite3
 ##
 server/db/seeds/production
 server/db/seeds/staging
+
+# Ignore logs
+server/access.log
