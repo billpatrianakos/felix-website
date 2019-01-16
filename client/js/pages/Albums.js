@@ -57,10 +57,10 @@ class AlbumContainer extends Component {
           <label>
             Filter by release type: 
           </label>
-          <label>Album  <input type="checkbox" name="album" onChange={this.updateFilters}   checked={this.state.filters.album} /></label>
+          <label>Album  <input type="checkbox" name="album"  onChange={this.updateFilters}  checked={this.state.filters.album} /></label>
           <label>Single <input type="checkbox" name="single" onChange={this.updateFilters}  checked={this.state.filters.album} /></label>
-          <label>EP     <input type="checkbox" name="ep" onChange={this.updateFilters}      checked={this.state.filters.album} /></label>
-          <label>LP     <input type="checkbox" name="lp" onChange={this.updateFilters}      checked={this.state.filters.album} /></label>
+          <label>EP     <input type="checkbox" name="ep"     onChange={this.updateFilters}  checked={this.state.filters.album} /></label>
+          <label>LP     <input type="checkbox" name="lp"     onChange={this.updateFilters}  checked={this.state.filters.album} /></label>
         </form>
         <div className="gallery-view">
           { albums.map((album, i) => <Album album={album} key={i} />) }
@@ -74,6 +74,7 @@ class Album extends Component {
   render() {
     return (
       <div className="album-tile">
+        <Link to={`/albums/${this.props.album.id}`}><img src={this.props.album.cover_art} alt={this.props.album.title} /></Link>
         <h3><Link to={`/albums/${this.props.album.id}`}>{this.props.album.title}</Link></h3>
         <p><small>{moment(this.props.album.release_date).format('YYYY')}</small></p>
       </div>
